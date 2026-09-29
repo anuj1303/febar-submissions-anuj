@@ -91,8 +91,29 @@ def main():
 - **Captured:** {ts}
 """)
 
-        # ---------- Layer 1: Lakeflow + Unity Catalog ----------
-        f.write("\n---\n\n## Layer 1 — Lakeflow + Unity Catalog (medallion, DQ, governance)\n")
+        # ---------- Layer 1: Lakeflow Declarative Pipeline ----------
+        f.write("\n---\n\n## Layer 1 — Lakeflow Declarative Pipeline (real ingestion)\n\n")
+        f.write("**Pipeline:** `febar-brickjewels-lakeflow-medallion` "
+                "(id `cc0e58b2-e714-471e-912e-6bb945ebd80c`, serverless, Photon). Raw JSON is landed "
+                "in the UC Volume `febar_bronze.landing` and ingested with **Auto Loader** "
+                "(`STREAM read_files`) → bronze; **silver** applies declarative DQ EXPECT "
+                "constraints (drop + quarantine); **gold** is a materialized view producing the "
+                "customer feature table. Pipeline source: `01_lakeflow_uc/lakeflow_pipeline.sql`.\n")
+        block(f, "Lakeflow medallion — row counts at each layer (bronze→silver→gold)",
+              "SELECT 'orders_bronze (Auto Loader)' AS layer, count(*) AS rows FROM febar_lakeflow.orders_bronze "
+              "UNION ALL SELECT 'orders_silver (DQ-validated)', count(*) FROM febar_lakeflow.orders_silver "
+              "UNION ALL SELECT 'orders_quarantine (DQ violations)', count(*) FROM febar_lakeflow.orders_quarantine "
+              "UNION ALL SELECT 'customer_features_gold (MV)', count(*) FROM febar_lakeflow.customer_features_gold "
+              "ORDER BY layer",
+              note="Auto Loader ingested 216,485 raw order events; silver enforced 5 EXPECT "
+                   "constraints; gold materialized 23,391 customer feature rows — matching the "
+                   "feature count the ML model was trained on.")
+        block(f, "Lakeflow gold parity — matches the model's feature table",
+              "SELECT (SELECT count(*) FROM febar_lakeflow.customer_features_gold) AS lakeflow_gold, "
+              "(SELECT count(*) FROM febar_gold.customer_features) AS ml_feature_table")
+
+        # ---------- Layer 1: Unity Catalog governance ----------
+        f.write("\n---\n\n## Layer 1 — Unity Catalog governance (masks, row filter, DQ)\n")
         block(f, "Gold customer_features — row count",
               "SELECT COUNT(*) AS total_customers FROM febar_gold.customer_features")
         block(f, "Gold customer_features — sample rows (RFM + affinity features)",
@@ -156,7 +177,13 @@ def main():
               "SELECT * FROM febar_ml.agent_eval_results ORDER BY evaluated_at DESC LIMIT 5")
 
         # ---------- Layer 5: Genie / Metric Views ----------
-        f.write("\n---\n\n## Layer 5 — Genie room over Gold (Metric Views)\n")
+        f.write("\n---\n\n## Layer 5 — Genie room over Gold (Metric Views)\n\n")
+        f.write("**Deployed Genie room:** \"BrickJewels Growth & Merchandising Intelligence\" "
+                "(space id `01f1bc1f903f1fee81d4fcbd8d35b026`) over the metric views below. "
+                "Real natural-language Q&A with Genie-generated SQL is captured in "
+                "`evidence/GENIE_TRANSCRIPT.md` — e.g. Genie answered the High-vs-Low segment LTV "
+                "question by choosing `mv_customer_propensity` and wrapping measures in `MEASURE()` "
+                "(High 4,678 @ ₹38.3L LTV vs Low 9,357 @ ₹6.2L — ≈6.2×).\n")
         block(f, "Metric view mv_sales — governed measures via MEASURE()",
               "SELECT MEASURE(`Revenue`) AS revenue, MEASURE(`Units Sold`) AS units_sold, "
               "MEASURE(`Avg Unit Price`) AS avg_unit_price, MEASURE(`Diamond Mix`) AS diamond_mix "

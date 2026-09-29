@@ -7,11 +7,44 @@
 > and its captured output. Regenerate with `python3 evidence/gen_execution_evidence.py`.
 
 - **Workspace:** AWS FE VM (`fe-vm-anuj-vm-workspace`)  ·  **Warehouse:** `0f16ae8ffb7cdef3`
-- **Captured:** 2026-09-29 20:08
+- **Captured:** 2026-09-29 21:39
 
 ---
 
-## Layer 1 — Lakeflow + Unity Catalog (medallion, DQ, governance)
+## Layer 1 — Lakeflow Declarative Pipeline (real ingestion)
+
+**Pipeline:** `febar-brickjewels-lakeflow-medallion` (id `cc0e58b2-e714-471e-912e-6bb945ebd80c`, serverless, Photon). Raw JSON is landed in the UC Volume `febar_bronze.landing` and ingested with **Auto Loader** (`STREAM read_files`) → bronze; **silver** applies declarative DQ EXPECT constraints (drop + quarantine); **gold** is a materialized view producing the customer feature table. Pipeline source: `01_lakeflow_uc/lakeflow_pipeline.sql`.
+
+### Lakeflow medallion — row counts at each layer (bronze→silver→gold)
+
+Auto Loader ingested 216,485 raw order events; silver enforced 5 EXPECT constraints; gold materialized 23,391 customer feature rows — matching the feature count the ML model was trained on.
+
+```sql
+SELECT 'orders_bronze (Auto Loader)' AS layer, count(*) AS rows FROM febar_lakeflow.orders_bronze UNION ALL SELECT 'orders_silver (DQ-validated)', count(*) FROM febar_lakeflow.orders_silver UNION ALL SELECT 'orders_quarantine (DQ violations)', count(*) FROM febar_lakeflow.orders_quarantine UNION ALL SELECT 'customer_features_gold (MV)', count(*) FROM febar_lakeflow.customer_features_gold ORDER BY layer
+```
+
+| layer | rows |
+| --- | --- |
+| customer_features_gold (MV) | 23391 |
+| orders_bronze (Auto Loader) | 216485 |
+| orders_quarantine (DQ violations) | 0 |
+| orders_silver (DQ-validated) | 216485 |
+
+
+### Lakeflow gold parity — matches the model's feature table
+
+```sql
+SELECT (SELECT count(*) FROM febar_lakeflow.customer_features_gold) AS lakeflow_gold, (SELECT count(*) FROM febar_gold.customer_features) AS ml_feature_table
+```
+
+| lakeflow_gold | ml_feature_table |
+| --- | --- |
+| 23391 | 23391 |
+
+
+---
+
+## Layer 1 — Unity Catalog governance (masks, row filter, DQ)
 
 ### Gold customer_features — row count
 
@@ -172,6 +205,8 @@ SELECT * FROM febar_ml.agent_eval_results ORDER BY evaluated_at DESC LIMIT 5
 ---
 
 ## Layer 5 — Genie room over Gold (Metric Views)
+
+**Deployed Genie room:** "BrickJewels Growth & Merchandising Intelligence" (space id `01f1bc1f903f1fee81d4fcbd8d35b026`) over the metric views below. Real natural-language Q&A with Genie-generated SQL is captured in `evidence/GENIE_TRANSCRIPT.md` — e.g. Genie answered the High-vs-Low segment LTV question by choosing `mv_customer_propensity` and wrapping measures in `MEASURE()` (High 4,678 @ ₹38.3L LTV vs Low 9,357 @ ₹6.2L — ≈6.2×).
 
 ### Metric view mv_sales — governed measures via MEASURE()
 

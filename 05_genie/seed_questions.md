@@ -1,5 +1,7 @@
 # FE Bar — BrickJewels — Layer 5 (Genie): Room configuration
 
+**Deployed:** ✅ Genie space `01f1bc1f903f1fee81d4fcbd8d35b026` (AWS FE VM). Real Q&A transcript with Genie-generated SQL committed in `evidence/GENIE_TRANSCRIPT.md`.
+
 **Room name:** BrickJewels Growth & Merchandising Intelligence
 **Backing tables (Gold):** `febar_gold.customer_360`, `febar_gold.customer_nbo_scores`, `febar_gold.mv_sales`, `febar_gold.mv_customer_propensity`, `brickjewels_analytics.fact_order_items`, `febar_gold.kpi_daily_sales`
 
