@@ -1,0 +1,25 @@
+{
+  "_comment": "FE Bar — BrickJewels — AI Gateway policy applied to the agent serving endpoint (febar-nbo-agent), the single AI entry point the app routes through. Governs the app's Foundation Model API usage: usage tracking + payload/inference logging + per-user rate limits + safety & PII guardrails on inputs and outputs.",
+  "usage_tracking_config": { "enabled": true },
+  "inference_table_config": {
+    "enabled": true,
+    "catalog_name": "anuj_vm_workspace_catalog",
+    "schema_name": "febar_ml",
+    "table_name_prefix": "agent_inference"
+  },
+  "rate_limits": [
+    { "calls": 60, "renewal_period": "minute", "key": "user" },
+    { "calls": 2000, "renewal_period": "minute", "key": "endpoint" }
+  ],
+  "guardrails": {
+    "input": {
+      "safety": true,
+      "pii": { "behavior": "BLOCK" },
+      "invalid_keywords": ["password", "credit card number", "aadhaar"]
+    },
+    "output": {
+      "safety": true,
+      "pii": { "behavior": "BLOCK" }
+    }
+  }
+}

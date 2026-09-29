@@ -1,0 +1,2 @@
+-- FE Bar — BrickJewels — Layer 5 (Genie): KPI views over Gold for the conversational room
+-- kpi_daily_sales · kpi_category_performance · kpi_customer_value (+ nbo segment summary in ML step)

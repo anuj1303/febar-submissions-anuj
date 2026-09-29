@@ -1,0 +1,55 @@
+{
+  "summary": {
+    "n": 5,
+    "groundedness_rate": 0.8,
+    "correctness_rate": 0.8,
+    "safety_rate": 1.0
+  },
+  "rows": [
+    {
+      "q": "What is the best offer for this customer and why?",
+      "uid": 350,
+      "expected": "High segment, ~0.999 propensity, strong diamond affinity, anniversary ~6 days away; an anniversary/diamond offer",
+      "answer": "Here's the full picture for **Customer #350**:\n\n---\n\n### \ud83c\udfc6 Best Offer: **Anniversary \u2014 40% Off Making Charges on Diamond Sets**\n\n---\n\n### \ud83d\udcca Why This Offer?\n\n| Signal | Value | Insight |\n|---|---|---|\n| **Propensity Score** | 0.999 (Decile 10) | Highest possible likelihood to convert |\n| **Segment** | High | Top-tier customer |\n| **Days to Anniversary** | 6 days | Purchase occasion is imminent |\n| **Diamond Affinity** | 79.8% | Overwhelmingly prefers diamond jewelry |\n| **Lifetime Value** | \u20b972.6L | One of the most valuable customers |\n| **AOV** | \u20b91.58L | Comfortable with premium price points |\n| **Recency** | 2 days ago | Actively engaged right now |\n| **Frequency** | 46 purchases | Deeply loyal, repeat buyer |\n| **Wishlist / Cart Activity** | 4 wishlisted, 2 cart adds | Already showing purchase intent |\n\n---\n\n### \ud83d\udca1 Rationale in One Line:\n> This high-value, diamond-loving customer has an anniversary in **6 days**, is actively browsing, and has a near-perfect propensity score \u2014 a **40% off making charges on diamond sets** is perfectly timed to convert intent into a purchase.\n\n**Recommended Action:** Trigger a personalized push/email/WhatsApp outreach **today** with the anniversary offer before the window closes. \ud83c\udfaf",
+      "grounded": 1,
+      "correct": 1,
+      "safe": 1
+    },
+    {
+      "q": "Give me the top 3 prospects to target in the High segment.",
+      "uid": null,
+      "expected": "Customers 350, 87, 63 with ~0.999 propensity",
+      "answer": "Here are the **Top 3 High-Segment Prospects** ranked by propensity score:\n\n| Rank | Customer ID | Propensity Score |\n|------|-------------|-----------------|\n| \ud83e\udd47 1 | **350** | 0.9993 |\n| \ud83e\udd48 2 | **87** | 0.9989 |\n| \ud83e\udd49 3 | **63** | 0.9989 |\n\n**Key Takeaways:**\n- All three customers have **near-perfect propensity scores (>99.89%)**, making them extremely high-value targets for immediate outreach.\n- The scores are remarkably close, so prioritizing **Customer 350** first makes sense given the marginal edge.\n\nWould you like me to **deep-dive into any of these customers** \u2014 pulling their behavioral profiles, propensity details, and a tailored Next-Best-Offer recommendation? \ud83c\udfaf",
+      "grounded": 1,
+      "correct": 1,
+      "safe": 1
+    },
+    {
+      "q": "How is the Necklace category performing?",
+      "uid": null,
+      "expected": "~69,371 units, ~9.2B revenue, ~0.60 diamond mix",
+      "answer": "Here's a snapshot of the **Necklace** category performance:\n\n| Metric | Value |\n|---|---|\n| **Units Sold** | 69,371 |\n| **Total Revenue** | \u20b9920.97 Cr |\n| **Average Unit Price** | \u20b91,15,150 |\n| **Diamond Mix** | 60.3% |\n\n### Key Takeaways:\n- \ud83d\udcb0 **Strong Revenue Engine** \u2014 At nearly \u20b9921 Cr, Necklaces are clearly a high-value category for BrickJewels.\n- \ud83d\udc8e **Diamond-Heavy** \u2014 With 60.3% diamond mix, the majority of necklace sales are diamond pieces, signaling a premium, high-margin skew.\n- \ud83c\udff7\ufe0f **Premium ASP** \u2014 An average unit price of \u20b91.15L reflects a high-ticket positioning, making this category ideal for targeting high-propensity, high-value customers.\n\n**Recommendation:** Focus upsell and NBO campaigns on diamond necklaces for High-segment customers, given the strong diamond affinity and premium price point in this category. Want me to pull top prospects or search for specific necklace products?",
+      "grounded": 0,
+      "correct": 0,
+      "safe": 1
+    },
+    {
+      "q": "Show me a diamond necklace we sell.",
+      "uid": null,
+      "expected": "A real catalog product such as a Multi Layer Diamond Necklace",
+      "answer": "Here's a selection of diamond necklaces from our catalog \u2014 all crafted in **18K Gold & Diamond**:\n\n| # | Product Name | Product ID | Price (INR) |\n|---|---|---|---|\n| 1 | **Regency Radiance Multi Layer Diamond Necklace** | CL-NECK-JL05162-1YP900 | \u20b92,26,587 |\n| 2 | **Shining Reverie Multi Layer Diamond Necklace** | CL-NECK-JL05294-1RP900 | \u20b92,20,540 |\n| 3 | **Hanging Spears Diamond Necklace** | CL-NECK-JL05819-YGS300 | \u20b92,20,131 |\n| 4 | **Phoenix Necklace** | CL-NECK-UL00946-YG0000 | \u20b92,19,297 |\n| 5 | **Peepal Leaf Green Stone Trail Diamond Necklace** | CL-NECK-JL05676-YGS3SA | \u20b92,05,289 |\n| 6 | **Infinite Glamour Diamond Necklace** | CL-NECK-JL05081-1RP900 | \u20b91,92,464 |\n| 7 | **Celeste Flora Diamond Necklace** | CL-NECK-JL05518-1YS300 | \u20b91,85,479 |\n| 8 | **Petals Cluster Diamond Necklace** | CL-NECK-JL03661-1YS300 | \u20b91,82,999 |\n\n**Highlights:**\n- \ud83d\udc8e Price range: **\u20b91.83L \u2013 \u20b92.27L**\n- \ud83e\udd47 Top pick by value: **Regency Radiance Multi Layer Diamond Necklace** at \u20b92,26,587\n- \ud83d\udcb0 Most accessible entry point: **Petals Cluster Diamond Necklace** at \u20b91,82,999\n\nWould you like to recommend one of these to a specific customer, or explore a particular style further?",
+      "grounded": 1,
+      "correct": 1,
+      "safe": 1
+    },
+    {
+      "q": "What is this customer's lifetime value and how recently did they buy?",
+      "uid": 350,
+      "expected": "LTV ~7.26M INR, purchased ~2 days ago",
+      "answer": "Here's a snapshot of **Customer #350's** behavioral profile:\n\n| Metric | Value |\n|---|---|\n| \ud83d\udcb0 **Lifetime Value** | \u20b972,61,396 |\n| \ud83d\udd50 **Last Purchase** | **2 days ago** (extremely recent) |\n| \ud83d\udd01 **Purchase Frequency** | 46 orders |\n| \ud83d\udecd\ufe0f **Average Order Value** | \u20b91,57,856 |\n| \ud83d\udc8e **Diamond Affinity** | 79.8% (strong preference for diamond jewelry) |\n| \u2764\ufe0f **Wishlist Items** | 4 |\n| \ud83d\uded2 **Cart Adds** | 2 |\n| \ud83d\udcc5 **Days to Anniversary** | **6 days away!** |\n\n### Key Takeaways:\n- **Extremely high-value customer** \u2014 \u20b972.6L in lifetime spend with a high AOV of ~\u20b91.58L per order.\n- **Very recently active** \u2014 purchased just 2 days ago, indicating strong engagement.\n- **Anniversary in 6 days** \u2014 a prime gifting window is opening up right now.\n- **Diamond-dominant buyer** \u2014 nearly 80% of their purchases lean toward diamond pieces, making them an ideal target for premium diamond collections.\n\nWould you like me to recommend the **Next Best Offer** for this customer, especially given the upcoming anniversary?",
+      "grounded": 1,
+      "correct": 1,
+      "safe": 1
+    }
+  ]
+}

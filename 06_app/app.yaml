@@ -1,0 +1,6 @@
+command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+env:
+  - name: BRICKJEWELS_WAREHOUSE_ID
+    value: "0f16ae8ffb7cdef3"
+  - name: BRICKJEWELS_LLM_ENDPOINT
+    value: "febar-claude-governed"
